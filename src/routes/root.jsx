@@ -1,10 +1,16 @@
-import { Outlet, Link, useLoaderData } from "react-router-dom";
-import { getContacts } from "../contacts";
+import { Outlet, Link, useLoaderData, Form } from "react-router-dom";
+import { getContacts, createContact } from "../contacts";
 
 export async function loader() {
     const contacts = await getContacts();
     return contacts
 }
+
+export async function action() {
+    const contact = await createContact();
+    return contact ;
+}
+
 
 export default function Root() {
     // Returns the loader data of a route
@@ -33,9 +39,12 @@ export default function Root() {
                             aria-live="polite"
                         ></div>
                     </form>
-                    <form method="post">
+                    {/* The Form component prevents an HTML form from sending the request to the server
+                        instead it sends it to the route's action */}
+                    <Form method="post">
                         <button type="submit">New</button>
-                    </form>
+                    </Form>
+                    
                 </div>
                 <nav>
                     {contacts.length ? (

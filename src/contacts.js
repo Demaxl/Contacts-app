@@ -14,6 +14,7 @@ export async function getContacts(query) {
 }
 
 export async function createContact() {
+    // Fake contact create
     await fakeNetwork();
     let id = Math.random().toString(36).substring(2, 9);
     let contact = { id, createdAt: Date.now() };

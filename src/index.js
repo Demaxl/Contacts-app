@@ -4,8 +4,13 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+
 import "./index.css";
-import Root, { loader as rootLoader } from "./routes/root";
+import Root, { 
+    loader as rootLoader,
+    action as rootAction
+    } from "./routes/root";
+
 import ErrorPage from "./error-page";
 import Contact from "./routes/contact";
 
@@ -21,6 +26,9 @@ const router = createBrowserRouter([
         // Defines a loader function that provides data to the route element before render,
         // useful for fetching data
         loader: rootLoader,
+        // Actions are called whenever a non-GET http request is submitted to the route
+        // e,g post, put, delete etc. After an action is completed all loader data get revalidated
+        action: rootAction,
         // This is nested routing, the parent route(base layout) is rendered then the children are rendered
         // depending on the url path
         children: [
