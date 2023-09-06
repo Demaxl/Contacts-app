@@ -3,6 +3,7 @@ import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
 export async function getContacts(query) {
+    // Function to simulate fake network request
     await fakeNetwork(`getContacts:${query}`);
     let contacts = await localforage.getItem("contacts");
     if (!contacts) contacts = [];

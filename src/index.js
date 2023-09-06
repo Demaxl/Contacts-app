@@ -5,7 +5,7 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import Root from "./routes/root";
+import Root, { loader as rootLoader } from "./routes/root";
 import ErrorPage from "./error-page";
 import Contact from "./routes/contact";
 
@@ -18,12 +18,15 @@ const router = createBrowserRouter([
         element: <Root />,
         // The component rendered when we navigate to a page that doesnt match any route
         errorElement: <ErrorPage />,
+        // Defines a loader function that provides data to the route element before render,
+        // useful for fetching data
+        loader: rootLoader,
         // This is nested routing, the parent route(base layout) is rendered then the children are rendered
         // depending on the url path
         children: [
             {
                 path: "contacts/:contactId",
-                element: <Contact />
+                element: <Contact />,
             }
         ]
     },
