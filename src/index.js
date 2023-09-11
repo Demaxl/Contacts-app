@@ -20,6 +20,8 @@ import EditContact, {
     action as editAction
 } from "./routes/edit";
 
+// -- Deletecontact
+import { action as deleteAction } from "./routes/delete";
 
 // Creates browser router to enable client side routing
 const router = createBrowserRouter([
@@ -50,6 +52,10 @@ const router = createBrowserRouter([
                 element: <EditContact />,
                 loader: contactLoader,
                 action: editAction
+            },
+            {
+                path: "contacts/:contactId/delete",
+                action: deleteAction
             }
         ]
     },

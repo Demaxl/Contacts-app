@@ -49,7 +49,8 @@ export default function Contact() {
                     </Form>
                     <Form
                         method="post"
-                        action="destroy"
+                        // This specifies the path the form should submit to
+                        action="delete/"
                         onSubmit={(event) => {
                             if (
                                 !window.confirm(

@@ -109,9 +109,9 @@ export default function Root() {
             </div>
             <div 
                 id="detail"
-                // returns the current navigation state
                 >
                 {
+                    // returns the current navigation state
                     (navigation.state === "loading") ? <Spinner /> : <Outlet />}
                 
                 
