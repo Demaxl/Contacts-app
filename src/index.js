@@ -12,7 +12,9 @@ import Root, {
     } from "./routes/root";
 
 import ErrorPage from "./error-page";
-import Contact from "./routes/contact";
+import Contact, {
+    loader as contactLoader
+} from "./routes/contact";
 
 
 // Creates browser router to enable client side routing
@@ -33,8 +35,11 @@ const router = createBrowserRouter([
         // depending on the url path
         children: [
             {
+                // :contactId represents a dynamic segment passed as URL Params
+                // params are passed to the loader for the route
                 path: "contacts/:contactId",
                 element: <Contact />,
+                loader: contactLoader
             }
         ]
     },

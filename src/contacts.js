@@ -28,6 +28,9 @@ export async function getContact(id) {
     await fakeNetwork(`contact:${id}`);
     let contacts = await localforage.getItem("contacts");
     let contact = contacts.find(contact => contact.id === id);
+
+    // nullish coalescing operator.
+    // return contact of default value of null
     return contact ?? null;
 }
 
