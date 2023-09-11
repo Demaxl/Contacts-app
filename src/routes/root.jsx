@@ -1,4 +1,4 @@
-import { Outlet, Link, useLoaderData, Form , redirect} from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form , redirect, NavLink} from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function loader() {
@@ -52,7 +52,22 @@ export default function Root() {
                         <ul>
                             {contacts.map((contact) => (
                                 <li key={contact.id}>
-                                    <Link to={`contacts/${contact.id}`}>
+                                    {/* A special type of line that knows whether its active or pending.
+                                        When the user is at the URL in the NavLink, then isActive will be true
+                                        When it's about to be active (the data is still loading) then 
+                                        isPending will be true. */}
+                                    <NavLink
+                                        to={`contacts/${contact.id}`}
+                                        // Passing a function to className to render based on NavLink state
+                                        className={({ isActive, isPending }) =>
+                                            isActive
+                                                ? "active"
+                                                : isPending
+                                                    ? "pending"
+                                                    : ""
+                                        }
+                                    >
+                                        {/* other code */}
                                         {contact.first || contact.last ? (
                                             <>
                                                 {contact.first} {contact.last}
@@ -60,8 +75,8 @@ export default function Root() {
                                         ) : (
                                             <i>No Name</i>
                                         )}{" "}
-                                        {contact.favorite && <span>★</span>}
-                                    </Link>
+                                    </NavLink>
+                                    
                                 </li>
                             ))}
                         </ul>
