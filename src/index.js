@@ -1,20 +1,24 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import "./index.css";
+import ErrorPage from "./error-page";
+
+// -- Root
 import Root, { 
     loader as rootLoader,
-    action as rootAction
-    } from "./routes/root";
+    action as rootAction,
+} from "./routes/root";
 
-import ErrorPage from "./error-page";
+// -- Contact
 import Contact, {
     loader as contactLoader
 } from "./routes/contact";
+
+// -- Edit Contact
+import EditContact, {
+    action as editAction
+} from "./routes/edit";
 
 
 // Creates browser router to enable client side routing
@@ -40,6 +44,12 @@ const router = createBrowserRouter([
                 path: "contacts/:contactId",
                 element: <Contact />,
                 loader: contactLoader
+            },
+            {
+                path: "contacts/:contactId/edit",
+                element: <EditContact />,
+                loader: contactLoader,
+                action: editAction
             }
         ]
     },
