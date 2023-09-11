@@ -55,7 +55,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "contacts/:contactId/delete",
-                action: deleteAction
+                action: deleteAction,
+                // Adds its own error element so it doesnt use the route own
+                errorElement: <div>Oops! There was an error!</div>
             }
         ]
     },
