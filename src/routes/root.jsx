@@ -1,4 +1,4 @@
-import { Outlet, Link, useLoaderData, Form , redirect, NavLink} from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form , redirect, NavLink, useNavigation} from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
 export async function loader() {
@@ -12,10 +12,30 @@ export async function action() {
     return redirect(`/contacts/${contact.id}/edit`);
 }
 
+function Spinner() {
+    return (
+        <div className="d-flex justify-content-center align-items-center">
+            <div className="spinner-border text-primary spinner-border-lg"
+                role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    )
+}
 
 export default function Root() {
     // Returns the loader data of a route
     const contacts = useLoaderData();
+
+    /*
+        useNavigation returns the current navigation state: 
+        it can be one of "idle" | "submitting" | "loading".
+
+        - idle - There is no navigation pending.
+        - submitting - A route action is being called due to a form submission using POST, PUT, PATCH, or DELETE
+        - loading - The loaders for the next routes are being called to render the next page
+    */
+    const navigation = useNavigation();
 
     return (
         <>
@@ -87,8 +107,14 @@ export default function Root() {
                     )}
                 </nav>
             </div>
-            <div id="detail">
-                <Outlet />
+            <div 
+                id="detail"
+                // returns the current navigation state
+                >
+                {
+                    (navigation.state === "loading") ? <Spinner /> : <Outlet />}
+                
+                
             </div>
         </>
     );
