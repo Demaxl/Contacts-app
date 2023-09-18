@@ -12,7 +12,8 @@ import Root, {
 
 // -- Contact
 import Contact, {
-    loader as contactLoader
+    loader as contactLoader,
+    action as contactAction
 } from "./routes/contact";
 
 // -- Edit Contact
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
                 // params are passed to the loader for the route
                 path: "contacts/:contactId",
                 element: <Contact />,
-                loader: contactLoader
+                loader: contactLoader,
+                action: contactAction
             },
             {
                 path: "contacts/:contactId/edit",

@@ -72,13 +72,16 @@ export default function Root() {
                             name="q"
                             defaultValue={q}
                             onChange={(event) => {
+                                const isFirstSearch = q == null;
                                 // event.currentTarget is the DOM element that the event listener is
                                 // attached to, .form is its parent form element
                                 // the submit automaticalls serializes and submits the form
-                                submit(event.currentTarget.form)
+                                submit(event.currentTarget.form, {
+                                    // This replaces the entry in the history stack instead of pushing onto it
+                                    replace: !isFirstSearch
+                                })
                             }}
                         />
-                        <input type="hidden" name="age" value={12} />
                         <div
                             id="search-spinner"
                             aria-hidden
@@ -124,6 +127,8 @@ export default function Root() {
                                         ) : (
                                             <i>No Name</i>
                                         )}{" "}
+                                        {contact.favorite && <span>★</span>}
+
                                     </NavLink>
                                     
                                 </li>
