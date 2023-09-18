@@ -1,4 +1,4 @@
-import { Form, useLoaderData, redirect } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { updateContact } from "../contacts";
 
 
@@ -16,6 +16,10 @@ export async function action({ request, params }) {
 
 export default function EditContact() {
     const contact = useLoaderData();
+
+    // Hook that returns a function that allows you to programmatically navigate
+    // between routes
+    const navigate = useNavigate();
 
     return (
         <Form method="post" id="contact-form">
@@ -65,7 +69,14 @@ export default function EditContact() {
             </label>
             <p>
                 <button type="submit">Save</button>
-                <button type="button">Cancel</button>
+                <button 
+                    type="button"
+                    onClick={() => {
+                        // Navigate to the previous route i.e go back in history
+                        navigate(-1)
+                    }}>
+                        Cancel
+                </button>
             </p>
         </Form>
     );
