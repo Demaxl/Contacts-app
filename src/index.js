@@ -10,6 +10,9 @@ import Root, {
     action as rootAction,
 } from "./routes/root";
 
+import Index from "./routes/index";
+
+
 // -- Contact
 import Contact, {
     loader as contactLoader,
@@ -41,26 +44,32 @@ const router = createBrowserRouter([
         // This is nested routing, the parent route(base layout) is rendered then the children are rendered
         // depending on the url path
         children: [
+            // This is a pathless route that allows the error element to be rendered the root element outlet section
             {
-                // :contactId represents a dynamic segment passed as URL Params
-                // params are passed to the loader for the route
-                path: "contacts/:contactId",
-                element: <Contact />,
-                loader: contactLoader,
-                action: contactAction
+                errorElement: <ErrorPage />,
+                children: [
+                    // index route, a route that renders in the parents outlet when its at the parent url
+                    { index: true, element: <Index /> },
+                    {
+                        path: "contacts/:contactId",
+                        element: <Contact />,
+                        loader: contactLoader,
+                        action: contactAction,
+                    },
+                    {
+                        path: "contacts/:contactId/edit",
+                        element: <EditContact />,
+                        loader: contactLoader,
+                        action: editAction
+                    },
+                    {
+                        path: "contacts/:contactId/delete",
+                        action: deleteAction,
+                        // Adds its own error element so it doesnt use the route own
+                        errorElement: <div>Oops! There was an error!</div>
+                    }
+                ],
             },
-            {
-                path: "contacts/:contactId/edit",
-                element: <EditContact />,
-                loader: contactLoader,
-                action: editAction
-            },
-            {
-                path: "contacts/:contactId/delete",
-                action: deleteAction,
-                // Adds its own error element so it doesnt use the route own
-                errorElement: <div>Oops! There was an error!</div>
-            }
         ]
     },
 
