@@ -80,10 +80,16 @@ export default function Contact() {
 function Favorite({ contact }) {
     // yes, this is a `let` for later
     let favorite = contact.favorite;
+    
 
     // A hook that allows us to interact with the loaders and action without causing a navigation
     // Just like Form when submitted all data gets revalidated
     const fetcher = useFetcher()
+
+    // Optimistic UI, Checks if the form is being submitted and behaves as if the submission is already true
+    if (fetcher.formData) {
+        favorite = fetcher.formData.get("favorite") === "true";
+    }
     return (
         // since action was not specified it will post the same route the form is rendered
         <fetcher.Form method="post">
